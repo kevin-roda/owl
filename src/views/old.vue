@@ -221,7 +221,7 @@ export default {
           currentElem.nbOctoDEv++;
         } else {
         }
-      }, 200);
+      }, 100);
     },
     OctoEmpty(isDev) {
       clearInterval(this.octoInterval);
@@ -233,7 +233,7 @@ export default {
           currentElem.nbOctoDEv--;
         } else {
         }
-      }, 200);
+      }, 100);
     },
     handleScroll(event) {
       const windowH = document.documentElement.clientHeight;
@@ -320,7 +320,7 @@ main {
 .octogones-move,
 .octogones-enter-active,
 .octogones-leave-active {
-  transition: all 0.5s ease;
+  transition: all 0.2s ease;
 }
 
 .octogones-enter-from,
@@ -349,11 +349,11 @@ main {
     @if $i % 2 == 0 {
       &:nth-child(#{$i + 1}) {
         bottom: ($octoheight * $i) / 2;
-        right: 0;
+        right: random(7) * $octoheight;
       }
       &:nth-child(#{$i + 2}) {
         top: ($octoheight * $i)/ 2;
-        right: 0;
+        right: random(7) * $octoheight;
       }
     }
   }
