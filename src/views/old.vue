@@ -1,6 +1,6 @@
 
 <template lang="fr">
-  <main :class="this.$store.getters.getState">
+  <main :class="[{not_choosed: !asChoosed},{scrolled: homeScroll > 0} ,this.$store.getters.getState ] ">
     <!-- <section class="rk_pleine_hauteur rk_sct1_accueil" :class="isReady">
       <h1><span>Formations web en savoie</span><span> / </span><span>haute savoie</span></h1>
       <div class="rk_content">
@@ -14,20 +14,8 @@
 </TransitionGroup>
     <section class="rk_sct1 rk_pleine_hauteur rk_sct1_accueil" :class="isReady">
     <h1>
-      <span>
-        <span>F</span>
-        <span>o</span>
-        <span>r</span>
-        <span>m</span>
-        <span>a</span>
-        <span>t</span>
-        <span>e</span>
-        <span>u</span>
-        <span>r</span>
-      </span>
-      <span> <span>et</span> </span>
-      <span @mouseenter="OctoFill(true)" @mouseleave="OctoEmpty(true)">
-        <span>D</span>
+      <span :style="'color:rgba(25, 229, 144,'+ (homeScroll/5) + ');'" >
+         <span :style="'font-size:calc(3rem + '+ homeScroll  + 'rem); transition-delay:0s;'">D</span>
         <span>é</span>
         <span>v</span>
         <span>e</span>
@@ -39,6 +27,30 @@
         <span>u</span>
         <span>r</span>
         
+
+      </span>
+      <span> 
+        <span :style="'font-size:calc(2rem + '+ homeScroll + 'rem); transition-delay:0s;'">K</span>
+      <span>é</span>
+      <span>v</span>
+      <span>i</span>
+      <span>n</span>
+      <span></span>
+      <span>r</span>
+      <span>o</span>
+      <span>d</span>
+      <span>a</span>
+      </span>
+      <span @mouseenter="OctoFill(true)" @mouseleave="OctoEmpty(true)">
+               <span :style="'font-size:calc(2rem + '+ homeScroll + 'rem); transition-delay:0s;'">F</span>
+        <span>o</span>
+        <span>r</span>
+        <span>m</span>
+        <span>a</span>
+        <span>t</span>
+        <span>e</span>
+        <span>u</span>
+        <span>r</span>
         <!-- <span>w</span>
         <span>e</span>
         <span>b</span> -->
@@ -196,8 +208,10 @@ export default {
     return {
       isReady: '',
       position: '',
+      homeScroll: 0,
       nbOctoDEv: 0,
       octoInterval: '',
+      asChoosed:false,
     };
   },
   mounted() {
@@ -208,6 +222,7 @@ export default {
   },
   created() {
     window.addEventListener('scroll', this.handleScroll);
+    window.addEventListener('wheel', this.handleScrollHome);
   },
   destroyed() {
     window.removeEventListener('scroll', this.handleScroll);
@@ -235,6 +250,21 @@ export default {
         }
       }, 100);
     },
+    handleScrollHome(e) {
+      console.log();
+      if (Math.sign(e.wheelDelta) == -1) {
+          if (this.homeScroll < 7) {
+            this.homeScroll++;
+          }
+      } else {
+        if (this.homeScroll > 0) {
+        this.homeScroll--;
+          
+        }
+        
+      }
+      
+    },
     handleScroll(event) {
       const windowH = document.documentElement.clientHeight;
       const hTotal = document.documentElement.scrollHeight - windowH;
@@ -260,7 +290,6 @@ export default {
       );
     },
     pageReady() {
-      console.log('ready');
       this.isReady = 'page_ready';
     },
   },
@@ -301,6 +330,10 @@ $octoWidth: 10vh;
 
 main {
   background: $color1;
+  &.not_choosed{
+    overflow: hidden;
+    height:100vh;
+  }
   &.loaded {
     .rk_sct1 {
       transform: translateY(0);
@@ -312,6 +345,21 @@ main {
           }
         }
       }
+    }
+
+    &.scrolled{
+      .rk_sct1 {
+      transform: translateY(0);
+      h1 {
+        span {
+          @for $i from 1 through 12 {
+            span:nth-child(#{$i}) {
+              transition-delay:0.1s * $i;
+            }
+          }
+        }
+      }
+    }
     }
   }
 }
@@ -382,12 +430,20 @@ main {
     overflow: hidden;
     > span {
       span {
+
+      &:nth-child(1) {
+        color:white;
+      }
+        
         display: inline-block;
         transition: all 0.4s;
         transform: translateY(60px);
         opacity: 0;
       }
       &:nth-child(1) {
+         -webkit-text-stroke-width: 1px;
+          -webkit-text-stroke-color: $textClr2;
+          font-size:3rem;
         color: $textClr2;
         @for $i from 1 through 12 {
           span:nth-child(#{$i}) {
@@ -396,12 +452,18 @@ main {
         }
       }
 
-      &:nth-child(2) span {
+      &:nth-child(2) {
         color: white;
         transition-delay: 2.6s;
         font-size: 32px;
+        span:nth-child(1) {
+        color:$textClr2;
+      }
       }
       &:nth-child(3) {
+        -webkit-text-stroke-width: 1px;
+          -webkit-text-stroke-color: $textClr2;
+          font-size:3rem;
         color: $textClr2;
         @for $i from 1 through 15 {
           span:nth-child(#{15 - $i}) {
@@ -476,7 +538,6 @@ main {
   h1 {
     color: $textClr1;
     margin: 0;
-    text-transform: uppercase;
     text-align: center;
     font-size: $moyTxt;
 
