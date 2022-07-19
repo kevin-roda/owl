@@ -1,7 +1,7 @@
 
 <!-- fermer menu quand click sur fenetter et faire apparaitre un par un les menu  -->
 <template>
-  <header>
+  <header :class="{ready:isReady}">
     <Logo>
       </Logo>
     <div
@@ -13,11 +13,7 @@
       <div class="rk_trait"></div>
       <div class="rk_trait"></div>
     </div>
-    <!-- <nav class="menu">
-      <a  :href="menuItemP.url" class="menu__link" v-for="menuItemP in menuPrincipal">
-        <span>{{menuItemP.slug}}</span>
-      </a>
-    </nav> -->
+
     <nav class="menu">
       <router-link class="menu__link" :to="'/old'"><span>Old</span></router-link>
    
@@ -44,6 +40,7 @@ export default {
   data: function () {
     return {
       isMenuOpened: '',
+      isReady : false,
     };
   },
   components: {
@@ -56,25 +53,8 @@ export default {
      
    },
   created: function () {
-    // var $ = jQuery;
     let currenApp = this;
-    // $.ajax({
-    //   url: rkApiParams.root + 'wp/v2/menu',
-    //   method: 'GET',
-    //   beforeSend: function (xhr) {
-    //     xhr.setRequestHeader('X-WP-Nonce', wpApiSettings.nonce);
-    //   },
-    // }).done(function (response) {
-    //   currenApp.menuPrincipal = response.menuPrincipal;
-    //   currenApp.menuPrincipal[0].style = '--x:18; --y: 17;';
-    //   currenApp.menuPrincipal[1].style = '--x:60; --y: 32;';
-    //   // currenApp.menuPrincipal[2].style ='--x:30; --y: 71;' ;
-    //   // currenApp.menuPrincipal[3].style ='--x:71; --y: 51;' ;
-    //   // currenApp.menuPrincipal[4].style ='--x:; --y: ;' ;
 
-    //   currenApp.menuSecondaire = response.menuSecondaire;
-    //   currenApp.waouhFooterContent = response.menuFooter;
-    // });
     setTimeout(function () {
       currenApp.isMenuOpened = 'init';
       currenApp.$store.commit('appState', 'loaded');
@@ -83,7 +63,7 @@ export default {
     setTimeout(function () {
       currenApp.isMenuOpened = 'closed';
       currenApp.$emit('page-ready');
-
+currenApp.isReady = true;
     }, 3500);
    
   },
@@ -114,6 +94,11 @@ export default {
 
 
 <style lang="scss">
+header.ready {
+    z-index: 100000;
+  position: relative;
+
+}
 .rk_menu_opener {
   position: fixed;
   right: 50px;

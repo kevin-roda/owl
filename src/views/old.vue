@@ -13,50 +13,8 @@
      </div>
 </TransitionGroup>
     <section class="rk_sct1 rk_pleine_hauteur rk_sct1_accueil" :class="isReady">
-    <h1>
-      <span :style="'color:rgba(25, 229, 144,'+ (homeScroll/5) + ');'" >
-         <span :style="'font-size:calc(3rem + '+ homeScroll  + 'rem); transition-delay:0s;'">D</span>
-        <span>é</span>
-        <span>v</span>
-        <span>e</span>
-        <span>l</span>
-        <span>o</span>
-        <span>p</span>
-        <span>p</span>
-        <span>e</span>
-        <span>u</span>
-        <span>r</span>
-        
-
-      </span>
-      <span> 
-        <span :style="'font-size:calc(2rem + '+ homeScroll + 'rem); transition-delay:0s;'">K</span>
-      <span>é</span>
-      <span>v</span>
-      <span>i</span>
-      <span>n</span>
-      <span></span>
-      <span>r</span>
-      <span>o</span>
-      <span>d</span>
-      <span>a</span>
-      </span>
-      <span @mouseenter="OctoFill(true)" @mouseleave="OctoEmpty(true)">
-               <span :style="'font-size:calc(2rem + '+ homeScroll + 'rem); transition-delay:0s;'">F</span>
-        <span>o</span>
-        <span>r</span>
-        <span>m</span>
-        <span>a</span>
-        <span>t</span>
-        <span>e</span>
-        <span>u</span>
-        <span>r</span>
-        <!-- <span>w</span>
-        <span>e</span>
-        <span>b</span> -->
-
-      </span>
-    </h1>
+      <h1>Formations en développement web </h1>
+     
 
     </section>
     
@@ -296,7 +254,7 @@ export default {
 };
 </script>
 
-  <style lang="scss">
+  <style lang="scss" scoped>
 $color1: #15161a;
 $color2: #1f2026;
 $textClr1: white;
@@ -331,7 +289,7 @@ $octoWidth: 10vh;
 main {
   background: $color1;
   &.not_choosed{
-    overflow: hidden;
+    // overflow: hidden;
     height:100vh;
   }
   &.loaded {
