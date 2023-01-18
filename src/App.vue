@@ -17,6 +17,7 @@
 // @ is an alias to /src
 // import Pages from '@/components/pages.vue';
 import Menu from '@/components/menu.vue';
+
 // import Souris from '@/components/souris.vue';
 
 

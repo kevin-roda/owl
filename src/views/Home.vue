@@ -8,6 +8,7 @@
           rk_slct_3: currentSection == 3,
         }"
       >
+ 
         <span @mouseleave="currentSection = 0" @mouseenter="timeout(1)">
           <span>D</span>
           <span>é</span>
@@ -41,6 +42,7 @@
           <div :style="mainBg" class="rk_bg_form rk_bg_4"></div>
         </span>
         <span @mouseleave="currentSection = 0" @mouseenter="timeout(3)">
+          <router-link :to="'/cours'">
           <span>F</span>
           <span>o</span>
           <span>r</span>
@@ -50,6 +52,7 @@
           <span>e</span>
           <span>u</span>
           <span>r</span>
+        </router-link>
           <div :style="mainBg" class="rk_bg_form rk_bg_1"></div>
           <div :style="mainBg" class="rk_bg_form rk_bg_2"></div>
           <div :style="mainBg" class="rk_bg_form rk_bg_3"></div>
@@ -148,6 +151,9 @@ $nmlTxtSml: 3rem;
 $cubeSml: 4rem;
 
 .home {
+  a {
+    color: inherit!important;
+  }
   section {
     height: 100vh;
   }
