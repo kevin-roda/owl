@@ -1,14 +1,12 @@
 <template>
   <div class="home" :class="this.$store.getters.getState">
-    <section class="rk_sct1 rk_pleine_hauteur rk_sct1_accueil">
-      <h1
-        :class="{
-          rk_slct_1: currentSection == 1,
-          rk_slct_2: currentSection == 2,
-          rk_slct_3: currentSection == 3,
-        }"
-      >
- 
+    <section class="rk_sct1 rk_pleine_hauteur rk_sct1_menu">
+      <h1 :class="{
+        rk_slct_1: currentSection == 1,
+        rk_slct_2: currentSection == 2,
+        rk_slct_3: currentSection == 3,
+      }">
+
         <span @mouseleave="currentSection = 0" @mouseenter="timeout(1)">
           <span>D</span>
           <span>é</span>
@@ -43,16 +41,16 @@
         </span>
         <span @mouseleave="currentSection = 0" @mouseenter="timeout(3)">
           <router-link :to="'/cours'">
-          <span>F</span>
-          <span>o</span>
-          <span>r</span>
-          <span>m</span>
-          <span>a</span>
-          <span>t</span>
-          <span>e</span>
-          <span>u</span>
-          <span>r</span>
-        </router-link>
+            <span>F</span>
+            <span>o</span>
+            <span>r</span>
+            <span>m</span>
+            <span>a</span>
+            <span>t</span>
+            <span>e</span>
+            <span>u</span>
+            <span>r</span>
+          </router-link>
           <div :style="mainBg" class="rk_bg_form rk_bg_1"></div>
           <div :style="mainBg" class="rk_bg_form rk_bg_2"></div>
           <div :style="mainBg" class="rk_bg_form rk_bg_3"></div>
@@ -152,23 +150,27 @@ $cubeSml: 4rem;
 
 .home {
   a {
-    color: inherit!important;
+    color: inherit !important;
   }
+
   section {
     height: 100vh;
   }
+
   &.loaded {
-    .rk_sct1_accueil {
+    .rk_sct1_menu {
       h1 {
         height: 100%;
-        > span {
+
+        >span {
           height: 100%;
           background-color: $color2;
         }
       }
     }
   }
-  .rk_sct1_accueil {
+
+  .rk_sct1_menu {
     position: relative;
     display: flex;
     justify-content: center;
@@ -177,6 +179,7 @@ $cubeSml: 4rem;
     transition: all 0.8s ease;
     height: 100vh;
     overflow: hidden;
+
     h1 {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
         Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
@@ -189,8 +192,9 @@ $cubeSml: 4rem;
       z-index: 0;
       position: relative;
       overflow: hidden;
+
       @for $i from 1 through 3 {
-        > span:nth-child(#{$i}) {
+        >span:nth-child(#{$i}) {
           transition: all 0.4s;
           transition-delay: (0.8 + (0.2 * $i)) + s;
         }
@@ -198,45 +202,52 @@ $cubeSml: 4rem;
 
       @for $i from 1 through 3 {
         &.rk_slct_#{$i} {
-          @if $i == 1 {
+          @if $i ==1 {
             @for $j from 1 through 4 {
-              > span:nth-child(2) {
+              >span:nth-child(2) {
                 .rk_bg_#{$j} {
                   transition-delay: (0.3 + (0.1 * $j)) + s;
                   opacity: 1;
                 }
               }
-              > span:nth-child(3) {
+
+              >span:nth-child(3) {
                 .rk_bg_#{$j} {
                   transition-delay: (0.6 + (0.1 * $j)) + s;
                   opacity: 1;
                 }
               }
             }
-          } @else if $i == 2 {
+          }
+
+          @else if $i ==2 {
             @for $j from 1 through 4 {
-              > span:nth-child(1) {
+              >span:nth-child(1) {
                 .rk_bg_#{$j} {
                   transition-delay: (0.3 + (0.1 * $j)) + s;
                   opacity: 1;
                 }
               }
-              > span:nth-child(3) {
+
+              >span:nth-child(3) {
                 .rk_bg_#{$j} {
                   transition-delay: (0.6 + (0.1 * $j)) + s;
                   opacity: 1;
                 }
               }
             }
-          } @else {
+          }
+
+          @else {
             @for $j from 1 through 4 {
-              > span:nth-child(2) {
+              >span:nth-child(2) {
                 .rk_bg_#{$j} {
                   transition-delay: (0.3 + (0.1 * $j)) + s;
                   opacity: 1;
                 }
               }
-              > span:nth-child(1) {
+
+              >span:nth-child(1) {
                 .rk_bg_#{$j} {
                   transition-delay: (0.6 + (0.1 * $j)) + s;
                   opacity: 1;
@@ -247,13 +258,15 @@ $cubeSml: 4rem;
         }
       }
 
-      > span {
+      >span {
         position: relative;
+
         &:hover {
           div {
             opacity: 1;
           }
         }
+
         &:nth-child(1) {
           .rk_bg_form {
             background-size: 100vw;
@@ -261,40 +274,50 @@ $cubeSml: 4rem;
             background-image: url(https://picsum.photos/id/1/1920/1080);
           }
         }
+
         &:nth-child(2) {
           .rk_bg_form {
             background-size: 100vw;
             background-position: -33.3333vw;
             background-image: url(https://picsum.photos/id/1006/1920/1080);
           }
+
           .rk_bg_1 {
             clip-path: polygon(0 0, 100% 0, 100% 20%, 50% 70%);
           }
+
           .rk_bg_2 {
             clip-path: polygon(100% 100%, 50% 70%, 100% 20%);
           }
+
           .rk_bg_3 {
             clip-path: polygon(0 0, 50% 70%, 0 100%);
           }
+
           .rk_bg_4 {
             clip-path: polygon(100% 100%, 50% 70%, 0 100%);
           }
         }
+
         &:nth-child(3) {
           .rk_bg_form {
             background-image: url(https://picsum.photos/id/395/1920/1080);
             background-size: 100vw;
             background-position: -66.6666vw;
           }
+
           .rk_bg_1 {
             clip-path: polygon(0 72%, 100% 100%, 0 100%, 0 72%);
           }
+
           .rk_bg_2 {
             clip-path: polygon(100% 0, 100% 20%, 50% 22%, 0 72%, 0 0);
           }
+
           .rk_bg_3 {
             clip-path: polygon(0 72%, 50% 22%, 100% 20%, 50% 70%);
           }
+
           .rk_bg_4 {
             clip-path: polygon(0 72%, 100% 100%, 100% 20%, 50% 70%);
           }
@@ -310,44 +333,46 @@ $cubeSml: 4rem;
           opacity: 0;
           transition: all 0.4s;
         }
+
         .rk_bg_1 {
           clip-path: polygon(59% 0, 100% 0, 100% 50%, 75% 30%, 0 22%, 0 0);
         }
+
         .rk_bg_2 {
-          clip-path: polygon(
-            43% 58%,
-            59% 85%,
-            100% 50%,
-            75% 30%,
-            0 22%,
-            0% 50%
-          );
+          clip-path: polygon(43% 58%,
+              59% 85%,
+              100% 50%,
+              75% 30%,
+              0 22%,
+              0% 50%);
           transition-delay: 0.1s;
         }
+
         .rk_bg_3 {
-          clip-path: polygon(
-            43% 58%,
-            59% 85%,
-            100% 50%,
-            100% 100%,
-            0 100%,
-            0% 50%
-          );
+          clip-path: polygon(43% 58%,
+              59% 85%,
+              100% 50%,
+              100% 100%,
+              0 100%,
+              0% 50%);
           transition-delay: 0.2s;
         }
 
         .rk_bg_4 {
           transition-delay: 0.3s;
         }
+
         height: 100%;
         width: 33.33333%;
         display: flex;
         justify-content: center;
         align-items: center;
+
         span {
           &:nth-child(1) {
             color: white;
           }
+
           position: relative;
           z-index: 2;
           display: inline-block;
@@ -355,11 +380,13 @@ $cubeSml: 4rem;
           transform: translateY(60px);
           opacity: 0;
         }
+
         &:nth-child(1) {
           -webkit-text-stroke-width: 1px;
           -webkit-text-stroke-color: $textClr2;
           font-size: 3rem;
           color: $textClr2;
+
           @for $i from 1 through 12 {
             span:nth-child(#{$i}) {
               transition-delay: 1 + (0.1s * $i);
@@ -370,15 +397,18 @@ $cubeSml: 4rem;
         &:nth-child(2) {
           color: white;
           font-size: 32px;
+
           span:nth-child(1) {
             color: $textClr2;
           }
         }
+
         &:nth-child(3) {
           -webkit-text-stroke-width: 1px;
           -webkit-text-stroke-color: $textClr2;
           font-size: 3rem;
           color: $textClr2;
+
           @for $i from 1 through 15 {
             span:nth-child(#{15 - $i}) {
               transition-delay: 1 + (0.1s * $i);
@@ -387,6 +417,7 @@ $cubeSml: 4rem;
         }
       }
     }
+
     .rk_content {
       position: relative;
     }
@@ -414,9 +445,11 @@ $cubeSml: 4rem;
       font-size: $moyTxt;
     }
   }
+
   &.loaded {
     .rk_sct1 {
       transform: translateY(0);
+
       h1 {
         span {
           span {

@@ -1,6 +1,6 @@
 <template>
   <div class="home" :class="this.$store.getters.getState + ' ' + isClosed">
-    <section class="rk_sct1 rk_pleine_hauteur rk_sct1_accueil">
+    <section class="rk_sct1 rk_pleine_hauteur rk_sct1_menu">
       <h1 :class="{
         rk_slct_1: currentSection == 1,
         rk_slct_2: currentSection == 2,
@@ -55,10 +55,6 @@
           <div :style="mainBg" class="rk_bg_form rk_bg_2"></div>
           <div :style="mainBg" class="rk_bg_form rk_bg_3"></div>
           <div :style="mainBg" class="rk_bg_form rk_bg_4"></div>
-
-          <!-- <span>w</span>
-        <span>e</span>
-        <span>b</span> -->
         </span>
       </h1>
     </section>
@@ -177,7 +173,7 @@ $cubeSml: 4rem;
   }
 
   &.loaded {
-    .rk_sct1_accueil {
+    .rk_sct1_menu {
       h1 {
         height: 100vh;
 
@@ -282,7 +278,7 @@ $cubeSml: 4rem;
 
   }
 
-  .rk_sct1_accueil {
+  .rk_sct1_menu {
     position: fixed;
     display: flex;
     top: 0;

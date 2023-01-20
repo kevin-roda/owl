@@ -1,160 +1,223 @@
-
 <template lang="fr">
-  <main :class="[{not_choosed: !asChoosed},{scrolled: homeScroll > 0} ,this.$store.getters.getState ] ">
-    <!-- <section class="rk_pleine_hauteur rk_sct1_accueil" :class="isReady">
-      <h1><span>Formations web en savoie</span><span> / </span><span>haute savoie</span></h1>
-      <div class="rk_content">
-        <h2>DIGITAL</h2>
-        <cube @page-ready="pageReady"></cube>
-      </div>
-    </section> -->
-    <TransitionGroup name="octogones" tag="div">
-         <div :key="ovtoDEv" v-for="ovtoDEv in nbOctoDEv" class="octo_dev">
+ <main :class="[{not_choosed: !asChoosed},{scrolled: homeScroll > 0} ,this.$store.getters.getState ] ">
+   <!-- <section class="rk_pleine_hauteur rk_sct1_accueil" :class="isReady">
+     <div class="rk_content">
+       <h2>DIGITAL</h2>
+       <cube @page-ready="pageReady">
+
+       </cube>
      </div>
+       <TransitionGroup name="octogones" tag="div">
+        <div :key="ovtoDEv" v-for="ovtoDEv in nbOctoDEv" class="octo_dev">
+    </div>
 </TransitionGroup>
-    <section class="rk_sct1 rk_pleine_hauteur rk_sct1_accueil" :class="isReady">
-      <h1>Formations en développement web </h1>
-     
+   </section>  -->
 
-    </section>
+   <section class="rk_sct1 rk_pleine_hauteur rk_sct1_accueil" :class="isReady">
+    <cube @page-ready="pageReady">
+    </cube>
+    <h1>
+      <span>Formations web en </span> <span>Savoie</span> <span> / </span>
+      <span>Haute-Savoie</span>
+    </h1>
     
-    <section class="rk_pleine_hauteur rk_sct2_accueil">
-      
-      <h2>Une formation unique</h2>
-      
-      <div class="rk_text">
-        <div class="rk_shape_floating"  :style="'transform:translate(' +(-position + 4)+'px, ' +(-position + 4)+'px);'"></div>
-        <p>        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proi
-          dent, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <div class="rk_image_rect">
 
+    </div>
+    <div class="rk_image_rect">
+
+    </div>
+    <div class="rk_image_rect">
+
+    </div>
+    <div class="rk_image_rect">
+
+    </div>
+    <div class="rk_image_rect">
+
+    </div>
+   </section>
+   
+   <section class="rk_pleine_hauteur rk_sct2_accueil">
+     
+     <h2>Des cursus prêts!</h2>
+     <div class="rk_logo_zone" :class="currentCursus">
+      <div>
+        <img src="../assets/wordpress-icon.svg" alt="Logo wordpress"/>
+      </div>
+      <div>
+        <img src="../assets/php-icon.svg" alt="Logo PHP"/>
+      </div>
+      <div>
+        <img src="../assets/html-icon.svg" alt="Logo html"/>
+      </div>
+      <div>
+        <img src="../assets/css-icon.svg" alt="Logo css"/>
+      </div>
+      <div>
+        <img src="../assets/js-icon.svg" alt="Logo javascript"/>
+      </div>
+      <div>
+        <img src="../assets/nodejs-icon.svg" alt="Logo NodeJs"/>
+      </div>
+      <div>
+        <img src="../assets/typescript-icon.svg" alt="Logo typescript"/>
+      </div>
+      <p class="wordpress">La formation wordpres bla bla La formation wordpres bla bla La formation wordpres bla blaLa formation wordpres bla bla</p>
+      <div>
+        <img src="../assets/vuejs-icon.svg" alt="Logo vueJs"/>
+      </div>
+      <div class="rk_btt1"></div>
+     </div>
+     <div class="rk_text">
+       <div class="rk_shape_floating"  :style="'transform:translate(' +(-position + 4)+'px, ' +(-position + 4)+'px);'">
+      </div>
+       
+         <div class="rk_cursus">
+        <h3>Quel Développeur veut-tu devenir ?</h3>
+        <div>
+          <p @click="currentCursus = 'wordpress'">Wordpress</p>
+           <p @click="currentCursus = 'front'">Front-end</p>
         </div>
-
-      </section>
-      <section class="rk_sct_pictos">
-        <div class="rk_picto">
-          <i></i>
-          <div class="rk_picto_txt">
-            Permier picto
-          </div>
+        <div>
+          <p>Back-end</p> <p>Fullstack</p>
         </div>
-        <div class="rk_picto_separator">
-
+          
+          
         </div>
-        <div class="rk_picto">
-          <i></i>
-          <div class="rk_picto_txt">
-            Deuxieme picto
-          </div>
-        </div>
-        <div class="rk_picto_separator">
+       </div>
+     </section>
+     <section class="rk_sct_pictos">
+       <div class="rk_picto">
+         <i>
 
-        </div>
-        <div class="rk_picto">
-          <i></i>
-          <div class="rk_picto_txt">
-            Troisieme picto
-          </div>
-        </div>
-      </section>
-      <section class="rk_pleine_hauteur rk_sct3_cours">
+         </i>
+         <div class="rk_picto_txt">
+           Permier picto
+         </div>
+       </div>
+       <div class="rk_picto_separator">
 
-        <h2>Les cours proposés</h2>
+       </div>
+       <div class="rk_picto">
+         <i>
 
-        <a href="#" class="rk_cours_link">
-          <div class="rk_nb">
-            .01
-          </div>
-          <div class="rk_subtitle">
-            Lorem ipsum dolor
-          </div>
-          <div class="rk_intro">
-            Lorem ipsum dolor  Lorem ipsum dolor
-            Lorem ipsum dolor  Lorem ipsum dolor
-            Lorem ipsum dolor
-          </div>
-          <div class="rk_click">
-            Voir ce cours
-          </div>
-        </a>
-        <a href="#" class="rk_cours_link">
-          <div class="rk_nb">
-            .01
-          </div>
-          <div class="rk_subtitle">
-            Lorem ipsum dolor
-          </div>
-          <div class="rk_intro">
-            Lorem ipsum dolor  Lorem ipsum dolor
-            Lorem ipsum dolor  Lorem ipsum dolor
-            Lorem ipsum dolor
-          </div>
-          <div class="rk_click">
-            Voir ce cours
-          </div>
-        </a>
-        <a href="#" class="rk_cours_link">
-          <div class="rk_nb">
-            .01
-          </div>
-          <div class="rk_subtitle">
-            Lorem ipsum dolor
-          </div>
-          <div class="rk_intro">
-            Lorem ipsum dolor  Lorem ipsum dolor
-            Lorem ipsum dolor  Lorem ipsum dolor
-            Lorem ipsum dolor
-          </div>
-          <div class="rk_click">
-            Voir ce cours
-          </div>
-        </a>
-        <a href="#" class="rk_cours_link">
-          <div class="rk_nb">
-            .01
-          </div>
-          <div class="rk_subtitle">
-            Lorem ipsum dolor
-          </div>
-          <div class="rk_intro">
-            Lorem ipsum dolor  Lorem ipsum dolor
-            Lorem ipsum dolor  Lorem ipsum dolor
-            Lorem ipsum dolor
-          </div>
-          <div class="rk_click">
-            Voir ce cours
-          </div>
-        </a>
+         </i>
+         <div class="rk_picto_txt">
+           Deuxieme picto
+         </div>
+       </div>
+       <div class="rk_picto_separator">
 
-      </section>
-      <section class="rk_sct3_accueil">
-        <div class="rk_container">
-          <div class="rk_title">
-            <h2>Contact</h2>
-          </div>
-          <div class="rk_contact">
-            <form method="POST">
-              <div class="rk_input_groupe">
-                <input class="" type="text" placeholder="Nom" name="nom">
-                <input class="" type="text" placeholder="Prénom" name="prenom">
-              </div>
-              <div class="rk_input_groupe">
-                <input class="" type="email" placeholder="Email" name="email">
-              </div>
-              <div class="rk_input_groupe">
-                <input class="" type="text" placeholder="Tel." name="tel">
-              </div>
-              <div class="rk_input_groupe">
-                <button class="rk_form_btn" type="submit">Envoyer</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </section>
-    </main>
+       </div>
+       <div class="rk_picto">
+         <i>
 
-  </template>
+         </i>
+         <div class="rk_picto_txt">
+           Troisieme picto
+         </div>
+       </div>
+     </section>
+     <section class="rk_pleine_hauteur rk_sct3_cours">
 
-  <script>
+       <h2>Les cours proposés</h2>
+
+       <a href="#" class="rk_cours_link">
+         <div class="rk_nb">
+           .01
+         </div>
+         <div class="rk_subtitle">
+           Lorem ipsum dolor
+         </div>
+         <div class="rk_intro">
+           Lorem ipsum dolor  Lorem ipsum dolor
+           Lorem ipsum dolor  Lorem ipsum dolor
+           Lorem ipsum dolor
+         </div>
+         <div class="rk_click">
+           Voir ce cours
+         </div>
+       </a>
+       <a href="#" class="rk_cours_link">
+         <div class="rk_nb">
+           .01
+         </div>
+         <div class="rk_subtitle">
+           Lorem ipsum dolor
+         </div>
+         <div class="rk_intro">
+           Lorem ipsum dolor  Lorem ipsum dolor
+           Lorem ipsum dolor  Lorem ipsum dolor
+           Lorem ipsum dolor
+         </div>
+         <div class="rk_click">
+           Voir ce cours
+         </div>
+       </a>
+       <a href="#" class="rk_cours_link">
+         <div class="rk_nb">
+           .01
+         </div>
+         <div class="rk_subtitle">
+           Lorem ipsum dolor
+         </div>
+         <div class="rk_intro">
+           Lorem ipsum dolor  Lorem ipsum dolor
+           Lorem ipsum dolor  Lorem ipsum dolor
+           Lorem ipsum dolor
+         </div>
+         <div class="rk_click">
+           Voir ce cours
+         </div>
+       </a>
+       <a href="#" class="rk_cours_link">
+         <div class="rk_nb">
+           .01
+         </div>
+         <div class="rk_subtitle">
+           Lorem ipsum dolor
+         </div>
+         <div class="rk_intro">
+           Lorem ipsum dolor  Lorem ipsum dolor
+           Lorem ipsum dolor  Lorem ipsum dolor
+           Lorem ipsum dolor
+         </div>
+         <div class="rk_click">
+           Voir ce cours
+         </div>
+       </a>
+
+     </section>
+     <section class="rk_sct3_accueil">
+       <div class="rk_container">
+         <div class="rk_title">
+           <h2>Contact</h2>
+         </div>
+         <div class="rk_contact">
+           <form method="POST">
+             <div class="rk_input_groupe">
+               <input class="" type="text" placeholder="Nom" name="nom">
+               <input class="" type="text" placeholder="Prénom" name="prenom">
+             </div>
+             <div class="rk_input_groupe">
+               <input class="" type="email" placeholder="Email" name="email">
+             </div>
+             <div class="rk_input_groupe">
+               <input class="" type="text" placeholder="Tel." name="tel">
+             </div>
+             <div class="rk_input_groupe">
+               <button class="rk_form_btn" type="submit">Envoyer</button>
+             </div>
+           </form>
+         </div>
+       </div>
+     </section>
+   </main>
+
+ </template>
+
+<script>
 import Cube from '../components/rubik.vue';
 
 export default {
@@ -169,7 +232,8 @@ export default {
       homeScroll: 0,
       nbOctoDEv: 0,
       octoInterval: '',
-      asChoosed:false,
+      asChoosed: false,
+      currentCursus: ''
     };
   },
   mounted() {
@@ -187,7 +251,7 @@ export default {
   },
   methods: {
     OctoFill(isDev) {
-        clearInterval(this.octoInterval);
+      clearInterval(this.octoInterval);
       let currentElem = this;
       currentElem.octoInterval = setInterval(() => {
         if (isDev) {
@@ -211,17 +275,17 @@ export default {
     handleScrollHome(e) {
       console.log();
       if (Math.sign(e.wheelDelta) == -1) {
-          if (this.homeScroll < 7) {
-            this.homeScroll++;
-          }
+        if (this.homeScroll < 7) {
+          this.homeScroll++;
+        }
       } else {
         if (this.homeScroll > 0) {
-        this.homeScroll--;
-          
+          this.homeScroll--;
+
         }
-        
+
       }
-      
+
     },
     handleScroll(event) {
       const windowH = document.documentElement.clientHeight;
@@ -254,7 +318,7 @@ export default {
 };
 </script>
 
-  <style lang="scss" scoped>
+<style lang="scss" scoped>
 $color1: #15161a;
 $color2: #1f2026;
 $textClr1: white;
@@ -286,15 +350,28 @@ $cubeSml: 4rem;
 $octoheight: 10vh;
 $octoWidth: 10vh;
 
+// cursus
+
+$cursusTop: 0px;
+$cursusMiddle : 100px;
+$cursusBottom: 200px;
+$cursusCenter: 40%;
+$cursusLeft: 20%;
+$cursusRight: 70%;
+
+
 main {
   background: $color1;
-  &.not_choosed{
+
+  &.not_choosed {
     // overflow: hidden;
-    height:100vh;
+    height: 100vh;
   }
+
   &.loaded {
     .rk_sct1 {
       transform: translateY(0);
+
       h1 {
         span {
           span {
@@ -305,19 +382,20 @@ main {
       }
     }
 
-    &.scrolled{
+    &.scrolled {
       .rk_sct1 {
-      transform: translateY(0);
-      h1 {
-        span {
-          @for $i from 1 through 12 {
-            span:nth-child(#{$i}) {
-              transition-delay:0.1s * $i;
+        transform: translateY(0);
+
+        h1 {
+          span {
+            @for $i from 1 through 12 {
+              span:nth-child(#{$i}) {
+                transition-delay: 0.1s * $i;
+              }
             }
           }
         }
       }
-    }
     }
   }
 }
@@ -339,24 +417,24 @@ main {
   height: $octoWidth;
   position: fixed;
   background: #19e5903a;
-  clip-path: polygon(
-    30% 0%,
-    70% 0%,
-    100% 30%,
-    100% 70%,
-    70% 100%,
-    30% 100%,
-    0% 70%,
-    0% 30%
-  );
+  clip-path: polygon(30% 0%,
+      70% 0%,
+      100% 30%,
+      100% 70%,
+      70% 100%,
+      30% 100%,
+      0% 70%,
+      0% 30%);
   z-index: 10;
   backdrop-filter: blur(10px);
+
   @for $i from 0 through 100 {
-    @if $i % 2 == 0 {
+    @if $i % 2==0 {
       &:nth-child(#{$i + 1}) {
         bottom: ($octoheight * $i) / 2;
         right: random(7) * $octoheight;
       }
+
       &:nth-child(#{$i + 2}) {
         top: ($octoheight * $i)/ 2;
         right: random(7) * $octoheight;
@@ -367,9 +445,10 @@ main {
 
 @keyframes octoAppear {
   to {
-  transform: scale(1);
+    transform: scale(1);
   }
 }
+
 .rk_sct1_accueil {
   position: relative;
   display: flex;
@@ -377,32 +456,75 @@ main {
   transform: translateY(40vh);
   align-items: center;
   transition: all 0.8s ease;
+  width: 100%;
+
+  .rk_image_rect {
+    clip-path: polygon(100% 0, 70% 100%, 0 100%, 30% 0);
+    width: 380px;
+    height: 130px;
+    background-color: #fff;
+    position: absolute;
+    background-image: url(https://picsum.photos/id/395/960/1080);
+    background-size: 50vw 100vh;
+
+    &:nth-child(3) {
+      top: 35vh;
+      left: 7vw;
+      background-position: -4vw -35vh;
+    }
+
+    &:nth-child(4) {
+      top: 28vh;
+      left: 17vw;
+      background-position: -14vw -28vh;
+
+    }
+
+    &:nth-child(5) {
+      top: 41vh;
+      left: 18vw;
+      background-position: -15vw -41vh;
+
+    }
+
+    &:nth-child(6) {
+      top: 55vh;
+      left: 11vw;
+      background-position: -8vw -55vh;
+    }
+
+    &:nth-child(7) {
+      top: 48vh;
+      left: 5vw;
+      background-position: -2vw -48vh;
+    }
+  }
 
   h1 {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
       Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
-    width: 100%;
     display: flex;
     justify-content: space-evenly;
-    font-size: 42px;
-    overflow: hidden;
-    > span {
-      span {
+    flex-wrap: wrap;
+    width: 30%;
 
-      &:nth-child(1) {
-        color:white;
-      }
-        
+    >span {
+      span {
+        &:nth-child(2) {
+          color: white;
+        }
+
         display: inline-block;
         transition: all 0.4s;
         transform: translateY(60px);
         opacity: 0;
       }
+
       &:nth-child(1) {
-         -webkit-text-stroke-width: 1px;
-          -webkit-text-stroke-color: $textClr2;
-          font-size:3rem;
+
+        font-size: 3rem;
         color: $textClr2;
+
         @for $i from 1 through 12 {
           span:nth-child(#{$i}) {
             transition-delay: 1 + (0.1s * $i);
@@ -410,19 +532,21 @@ main {
         }
       }
 
-      &:nth-child(2) {
+      &:nth-child(3) {
         color: white;
         transition-delay: 2.6s;
         font-size: 32px;
+
         span:nth-child(1) {
-        color:$textClr2;
+          color: $textClr2;
+        }
       }
-      }
+
       &:nth-child(3) {
-        -webkit-text-stroke-width: 1px;
-          -webkit-text-stroke-color: $textClr2;
-          font-size:3rem;
-        color: $textClr2;
+
+        font-size: 3rem;
+        color: $textClr1;
+
         @for $i from 1 through 15 {
           span:nth-child(#{15 - $i}) {
             transition-delay: 1 + (0.1s * $i);
@@ -431,6 +555,7 @@ main {
       }
     }
   }
+
   .rk_content {
     position: relative;
   }
@@ -494,10 +619,11 @@ main {
   }
 
   h1 {
-    color: $textClr1;
+    color: $textClr2;
     margin: 0;
+    transform: translate(50%);
     text-align: center;
-    font-size: $moyTxt;
+    font-size: $nmlTxtMed;
 
     &:before {
       content: '';
@@ -509,7 +635,7 @@ main {
       opacity: 0.3;
       z-index: 0;
       position: absolute;
-      transform: rotate(50deg);
+      transform: rotate(50deg) translateX(50%);
       transform-origin: top right;
     }
   }
@@ -521,6 +647,178 @@ main {
   display: flex;
   position: relative;
   z-index: 1;
+
+  .rk_logo_zone {
+    position: absolute;
+    left: 25%;
+    top: 40%;
+    transform: translate(-50%);
+    height: 50vh;
+    width: 50%;
+
+    >p {
+      position: absolute;
+      text-align: left;
+      width: 25%;
+      top: 0;
+      margin: 0;
+      color: $textClr2;
+      right: -10px;
+      padding: 20px;
+      transform: translateX(100%);
+      font-family: Avenir, Helvetica, Arial, sans-serif;
+      font-weight: 700;
+      background-color: $color2;
+      transition: transform .4s;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+
+    .rk_btt1 {
+      position: absolute;
+      left: $cursusCenter;
+      top: 54px;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 0px;
+      border-radius: 0;
+      z-index: 0;
+      padding: 0;
+      background-color: $textClr2;
+      transition: height .4s;
+    }
+
+    div {
+      z-index: 1;
+
+      padding: 2px;
+      width: 50px;
+      height: 50px;
+      position: absolute;
+      transform: translatex(-50%);
+      overflow: hidden;
+      border-radius: 50%;
+
+
+      &:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: $textClr2;
+        width: 100%;
+        height: 0%;
+        z-index: -1;
+        transition: height .4S;
+
+      }
+
+
+
+
+      &:nth-child(1) {
+        top: $cursusTop;
+        left: $cursusCenter;
+      }
+
+      &:nth-child(2) {
+        top: $cursusMiddle;
+        left: $cursusCenter;
+      }
+
+      img {
+        transform: translateY(110%);
+        transition: all .4s;
+      }
+
+      &:nth-child(3) {
+        top: 0%;
+        left: 60%;
+      }
+
+      &:nth-child(4) {
+        top: 0%;
+        left: 85%;
+      }
+
+      &:nth-child(5) {
+        top: 50%;
+        left: 10%;
+      }
+
+      &:nth-child(6) {
+        top: 50%;
+        left: 35%;
+      }
+
+      &:nth-child(7) {
+        top: 50%;
+        left: 60%;
+      }
+
+      &:nth-child(8) {
+        top: 50%;
+        left: 85%;
+      }
+
+
+
+    }
+
+
+    //     $cursusTop: 0px;
+    // $cursusMiddle : 100px;
+    // $cursusBottom: 200px;
+    // $cursusCenter: 50%;
+    // $cursusLeft: 25%;
+    // $cursusRight: 75%;
+    &.wordpress {
+      p.wordpress {
+        transform: translatex(0);
+      }
+
+      .rk_btt1 {
+        height: 50px;
+        transition-delay: .8s;
+
+      }
+
+      div:nth-child(1) {
+        top: $cursusTop;
+        left: $cursusCenter;
+
+        &:before {
+          transition-delay: .6s;
+          height: 100%;
+        }
+
+        img {
+          transform: translateY(0);
+          transition-delay: .2s;
+
+        }
+      }
+
+      div:nth-child(2) {
+        top: $cursusMiddle;
+        left: $cursusCenter;
+
+        &:before {
+          transition-delay: 1s;
+          height: 100%;
+        }
+
+        img {
+          transition-delay: .8s;
+          transform: translateY(0);
+        }
+      }
+
+    }
+  }
 
   &:after {
     content: '';
@@ -570,6 +868,36 @@ main {
 
   .rk_text {
     position: relative;
+
+    .rk_cursus {
+      width: 50vw;
+
+
+      h3 {
+        color: white;
+        width: 100%;
+      }
+
+      div {
+        display: flex;
+        justify-content: space-evenly;
+
+        p {
+          width: 200px;
+          height: 80px;
+          background-color: $color2;
+          color: white;
+          border: solid 2px $textClr2;
+          display: flex;
+          justify-content: space-evenly;
+          align-items: center;
+          font-size: $moyTxt;
+        }
+      }
+
+
+    }
+
     &:after {
       background-color: $color1;
       content: '';
@@ -582,6 +910,7 @@ main {
       width: 25%;
       height: 45px;
     }
+
     .rk_shape_floating {
       background-color: $color2;
       z-index: 2;
@@ -599,22 +928,15 @@ main {
     background: $color2;
   }
 
-  .rk_text p {
-    color: $textClr1;
-    padding: 15%;
-    letter-spacing: 1px;
-  }
 }
 
 // PICTOS
 
 .rk_sct_pictos {
   background: rgb(13, 154, 127);
-  background: linear-gradient(
-    90deg,
-    rgba(13, 154, 127, 1) 0%,
-    rgba(25, 229, 144, 1) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(13, 154, 127, 1) 0%,
+      rgba(25, 229, 144, 1) 100%);
   display: flex;
   justify-content: center;
   padding: 40px 0;
@@ -1098,10 +1420,7 @@ main {
   }
 }
 
-@media screen and (min-width: 769px) {
-}
+@media screen and (min-width: 769px) {}
 
-@media screen and (min-width: 1024px) {
-}
+@media screen and (min-width: 1024px) {}
 </style>
- 
