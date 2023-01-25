@@ -12,10 +12,11 @@
     </div>
 </TransitionGroup>
    </section>  -->
-
-   <section class="rk_sct1 rk_pleine_hauteur rk_sct1_accueil" :class="isReady">
-    <cube @page-ready="pageReady">
+   <cube @page-ready="pageReady">
     </cube>
+    <modal v-if="showModal" @close="showModal = false"></modal>
+   <section class="rk_sct1 rk_pleine_hauteur rk_sct1_accueil" :class="isReady">
+    
     <h1>
       <span>Formations web en </span> <span>Savoie</span> <span> / </span>
       <span>Haute-Savoie</span>
@@ -63,11 +64,28 @@
       <div>
         <img src="../assets/typescript-icon.svg" alt="Logo typescript"/>
       </div>
+      <div>
+        <img src="../assets/vuejs-icon.svg" alt="Logo typescript"/>
+      </div>
       <p class="wordpress">La formation wordpres bla bla La formation wordpres bla bla La formation wordpres bla blaLa formation wordpres bla bla</p>
+      <p class="backend">La formation wordpres bla bla La formation wordpres bla bla La formation wordpres bla blaLa formation wordpres bla bla</p>
+      <p class="frontend">La formation front-end bla bla La formation wordpres bla bla La formation wordpres bla blaLa formation wordpres bla bla</p>
+      <p class="fullstack">La formation front-end bla bla La formation wordpres bla bla La formation wordpres bla blaLa formation wordpres bla bla</p>
       <div>
         <img src="../assets/vuejs-icon.svg" alt="Logo vueJs"/>
       </div>
-      <div class="rk_btt1"></div>
+      <div class="rk_tree_h rk_btt1"></div>
+      <div class="rk_tree_h rk_btt20"></div>
+      <div class="rk_tree_h rk_btt21"></div>
+      <div class="rk_tree_v rk_btt22"></div>
+      <div class="rk_tree_v rk_btt23"></div>
+      <div class="rk_tree_h rk_btt24"></div>
+      <div class="rk_tree_h rk_btt25"></div>
+      <div class="rk_tree_v rk_btt26"></div>
+      <div class="rk_tree_h rk_btt27"></div>
+      <div class="rk_tree_h rk_btt28"></div>
+      <div class="rk_tree_v rk_btt30"></div>
+      <div class="rk_tree_h rk_btt31"></div>
      </div>
      <div class="rk_text">
        <div class="rk_shape_floating"  :style="'transform:translate(' +(-position + 4)+'px, ' +(-position + 4)+'px);'">
@@ -76,11 +94,11 @@
          <div class="rk_cursus">
         <h3>Quel Développeur veut-tu devenir ?</h3>
         <div>
-          <p @click="currentCursus = 'wordpress'">Wordpress</p>
-           <p @click="currentCursus = 'front'">Front-end</p>
+          <p @click="changeCursus('wordpress')">Wordpress</p>
+           <p @click="changeCursus('front')">Front-end</p>
         </div>
         <div>
-          <p>Back-end</p> <p>Fullstack</p>
+          <p @click="changeCursus('back')">Back-end</p> <p  @click="changeCursus('fullstack')">Fullstack</p>
         </div>
           
           
@@ -123,7 +141,7 @@
 
        <h2>Les cours proposés</h2>
 
-       <a href="#" class="rk_cours_link">
+       <a href="#" class="rk_cours_link" @click="showModal = true">
          <div class="rk_nb">
            .01
          </div>
@@ -219,15 +237,18 @@
 
 <script>
 import Cube from '../components/rubik.vue';
+import CoursList from '../components/cours_list.vue';
 
 export default {
   name: 'accueil',
   components: {
     cube: Cube,
+    modal: CoursList,
   },
   data() {
     return {
       isReady: '',
+      showModal: false,
       position: '',
       homeScroll: 0,
       nbOctoDEv: 0,
@@ -239,7 +260,10 @@ export default {
   mounted() {
     let vueElem = this;
     document.onscroll = function () {
+
       vueElem.position = vueElem.getVerticalScrollPercentage();
+      vueElem.$store.commit('scrollState', vueElem.position);
+
     };
   },
   created() {
@@ -250,6 +274,12 @@ export default {
     window.removeEventListener('scroll', this.handleScroll);
   },
   methods: {
+    changeCursus(cursus) {
+      this.currentCursus = "";
+      setTimeout(() => {
+        this.currentCursus = cursus;
+      }, 450);
+    },
     OctoFill(isDev) {
       clearInterval(this.octoInterval);
       let currentElem = this;
@@ -273,7 +303,6 @@ export default {
       }, 100);
     },
     handleScrollHome(e) {
-      console.log();
       if (Math.sign(e.wheelDelta) == -1) {
         if (this.homeScroll < 7) {
           this.homeScroll++;
@@ -358,6 +387,7 @@ $cursusBottom: 200px;
 $cursusCenter: 40%;
 $cursusLeft: 20%;
 $cursusRight: 70%;
+$tpsAnim: .2s;
 
 
 main {
@@ -461,39 +491,41 @@ main {
   .rk_image_rect {
     clip-path: polygon(100% 0, 70% 100%, 0 100%, 30% 0);
     width: 380px;
+
     height: 130px;
     background-color: #fff;
     position: absolute;
     background-image: url(https://picsum.photos/id/395/960/1080);
     background-size: 50vw 100vh;
+    background-attachment: fixed;
 
-    &:nth-child(3) {
+    &:nth-child(2) {
       top: 35vh;
       left: 7vw;
       background-position: -4vw -35vh;
     }
 
-    &:nth-child(4) {
+    &:nth-child(3) {
       top: 28vh;
       left: 17vw;
       background-position: -14vw -28vh;
 
     }
 
-    &:nth-child(5) {
+    &:nth-child(4) {
       top: 41vh;
       left: 18vw;
       background-position: -15vw -41vh;
 
     }
 
-    &:nth-child(6) {
+    &:nth-child(5) {
       top: 55vh;
       left: 11vw;
       background-position: -8vw -55vh;
     }
 
-    &:nth-child(7) {
+    &:nth-child(6) {
       top: 48vh;
       left: 5vw;
       background-position: -2vw -48vh;
@@ -677,11 +709,8 @@ main {
       height: 100%;
     }
 
-    .rk_btt1 {
+    .rk_tree_h {
       position: absolute;
-      left: $cursusCenter;
-      top: 54px;
-      transform: translateX(-50%);
       width: 4px;
       height: 0px;
       border-radius: 0;
@@ -689,6 +718,91 @@ main {
       padding: 0;
       background-color: $textClr2;
       transition: height .4s;
+    }
+
+    .rk_tree_v {
+      position: absolute;
+      height: 4px;
+      width: 0px;
+      border-radius: 0;
+      z-index: 0;
+      padding: 0;
+      background-color: $textClr2;
+      transition: width .4s;
+    }
+
+    .rk_btt1 {
+      left: $cursusCenter;
+      top: 54px;
+      transform: translateX(-50%);
+    }
+
+    .rk_btt20 {
+      left: calc($cursusCenter - 50px);
+      top: 54px;
+      transform: translateX(-50%);
+    }
+
+    .rk_btt21 {
+      left: calc($cursusCenter + 50px);
+      top: 54px;
+      transform: translateX(-50%);
+    }
+
+    .rk_btt22 {
+      left: calc($cursusCenter - 50px);
+      top: 79px;
+      transform: translateX(-2px);
+
+    }
+
+    .rk_btt23 {
+      left: calc($cursusCenter + 50px);
+      top: 79px;
+      transform: translateX(calc(-100% + 2px));
+
+    }
+
+    .rk_btt24 {
+      left: $cursusCenter;
+      top: 79px;
+      transform: translateX(-50%);
+    }
+
+    .rk_btt25 {
+      left: $cursusCenter;
+      top: 150px;
+      transform: translateX(-50%);
+    }
+
+    .rk_btt26 {
+      left: $cursusCenter;
+      top: 171px;
+      transform: translateX(-50%);
+    }
+
+    .rk_btt27 {
+      left: calc($cursusCenter - 50px);
+      top: 175px;
+      transform: translateX(0px);
+    }
+
+    .rk_btt28 {
+      left: calc($cursusCenter + 50px);
+      top: 175px;
+      transform: translateX(-4px);
+    }
+
+    .rk_btt30 {
+      left: $cursusCenter;
+      top: 123px;
+      transform: translateX(-100%);
+
+    }
+
+    .rk_btt31 {
+      left: calc($cursusCenter - 150px);
+      top: 123px;
     }
 
     div {
@@ -700,6 +814,9 @@ main {
       position: absolute;
       transform: translatex(-50%);
       overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       border-radius: 50%;
 
 
@@ -712,7 +829,7 @@ main {
         width: 100%;
         height: 0%;
         z-index: -1;
-        transition: height .4S;
+        transition: height $tpsAnim;
 
       }
 
@@ -729,40 +846,44 @@ main {
         left: $cursusCenter;
       }
 
-      img {
-        transform: translateY(110%);
-        transition: all .4s;
-      }
-
       &:nth-child(3) {
-        top: 0%;
-        left: 60%;
+        top: $cursusTop;
+        left: calc($cursusCenter - 50px);
       }
 
       &:nth-child(4) {
-        top: 0%;
-        left: 85%;
+        top: $cursusTop ;
+        left: calc($cursusCenter + 50px);
       }
 
+      img {
+        transform: translateY(50px);
+        transition: all .4s;
+        width: 38px;
+        height: 38px;
+      }
+
+
       &:nth-child(5) {
-        top: 50%;
-        left: 10%;
+        top: $cursusMiddle ;
+        left: $cursusCenter;
       }
 
       &:nth-child(6) {
-        top: 50%;
-        left: 35%;
-      }
-
-      &:nth-child(7) {
-        top: 50%;
-        left: 60%;
+        top: $cursusMiddle;
+        left: $cursusCenter;
       }
 
       &:nth-child(8) {
-        top: 50%;
-        left: 85%;
+        top: $cursusBottom ;
+        left: calc($cursusCenter - 50px);
       }
+
+      &:nth-child(7) {
+        top: $cursusBottom ;
+        left: calc($cursusCenter + 50px);
+      }
+
 
 
 
@@ -782,7 +903,7 @@ main {
 
       .rk_btt1 {
         height: 50px;
-        transition-delay: .8s;
+        transition-delay: $tpsAnim * 2;
 
       }
 
@@ -791,13 +912,13 @@ main {
         left: $cursusCenter;
 
         &:before {
-          transition-delay: .6s;
+          transition-delay: $tpsAnim * 1.5;
           height: 100%;
         }
 
         img {
           transform: translateY(0);
-          transition-delay: .2s;
+          transition-delay: $tpsAnim / 2;
 
         }
       }
@@ -807,16 +928,277 @@ main {
         left: $cursusCenter;
 
         &:before {
-          transition-delay: 1s;
+          transition-delay: $tpsAnim * 2.5;
           height: 100%;
         }
 
         img {
-          transition-delay: .8s;
+          transition-delay: $tpsAnim * 2;
           transform: translateY(0);
         }
       }
 
+    }
+
+    &.back {
+      p.backend {
+        transform: translatex(0);
+      }
+
+      .rk_btt1 {
+        height: 50px;
+        transition-delay: $tpsAnim * 2;
+
+      }
+
+      div:nth-child(5) {
+        top: $cursusTop;
+        left: $cursusCenter;
+
+        &:before {
+          transition-delay: $tpsAnim * 1.5;
+          height: 100%;
+        }
+
+        img {
+          transform: translateY(0);
+          transition-delay: $tpsAnim / 2;
+
+        }
+      }
+
+      div:nth-child(6) {
+        top: $cursusMiddle;
+        left: $cursusCenter;
+
+        &:before {
+          transition-delay: $tpsAnim * 2.5;
+          height: 100%;
+        }
+
+        img {
+          transition-delay: $tpsAnim * 2;
+          transform: translateY(0);
+        }
+      }
+
+    }
+
+    &.front {
+
+      p.frontend {
+        transform: translatex(0);
+      }
+
+      .rk_btt20,
+      .rk_btt21 {
+        height: 25px;
+        transition-delay: $tpsAnim * 2;
+
+      }
+
+      .rk_btt22,
+      .rk_btt23 {
+        width: 55px;
+        transition-delay: $tpsAnim * 3.5;
+
+      }
+
+      .rk_btt24 {
+        height: 25px;
+        transition-delay: $tpsAnim * 4;
+
+      }
+
+      .rk_btt25 {
+        height: 25px;
+        transition-delay: $tpsAnim * 5.5;
+
+      }
+
+      .rk_btt26 {
+        width: 100px;
+        transition-delay: $tpsAnim * 6.5;
+      }
+
+      .rk_btt27,
+      .rk_btt28 {
+        height: 25px;
+        transition-delay: $tpsAnim * 8;
+      }
+
+
+      div:nth-child(3) {
+
+        &:before {
+          transition-delay: $tpsAnim * 1.5;
+          height: 100%;
+        }
+
+        img {
+          transform: translateY(0);
+          transition-delay: $tpsAnim / 2;
+
+        }
+      }
+
+      div:nth-child(4) {
+        &:before {
+          transition-delay: $tpsAnim * 1.5;
+          height: 100%;
+        }
+
+        img {
+          transition-delay: $tpsAnim / 2;
+          transform: translateY(0);
+        }
+      }
+
+      div:nth-child(5) {
+        &:before {
+          transition-delay: $tpsAnim * 6;
+          height: 100%;
+        }
+
+        img {
+          transition-delay: $tpsAnim * 5.5;
+          transform: translateY(0);
+        }
+      }
+
+      div:nth-child(8),
+      div:nth-child(7) {
+        &:before {
+          transition-delay: $tpsAnim * 9;
+          height: 100%;
+        }
+
+        img {
+          transition-delay: $tpsAnim * 8.5;
+          transform: translateY(0);
+        }
+      }
+    }
+
+    &.fullstack {
+
+      p.fullstack {
+        transform: translatex(0);
+      }
+
+      .rk_btt20,
+      .rk_btt21 {
+        height: 25px;
+        transition-delay: $tpsAnim * 2;
+
+      }
+
+      .rk_btt22,
+      .rk_btt23 {
+        width: 55px;
+        transition-delay: $tpsAnim * 3.5;
+
+      }
+
+      .rk_btt24 {
+        height: 25px;
+        transition-delay: $tpsAnim * 4;
+
+      }
+
+      .rk_btt25 {
+        height: 25px;
+        transition-delay: $tpsAnim * 5.5;
+
+      }
+
+      .rk_btt26 {
+        width: 100px;
+        transition-delay: $tpsAnim * 6.5;
+      }
+
+      .rk_btt27,
+      .rk_btt28 {
+        height: 25px;
+        transition-delay: $tpsAnim * 8;
+      }
+
+      .rk_btt30 {
+        width: 150px;
+        transition-delay: $tpsAnim * 6.5;
+      }
+
+      .rk_btt31 {
+        height: 79px;
+        transition-delay: $tpsAnim * 8;
+      }
+
+
+      div:nth-child(3) {
+
+        &:before {
+          transition-delay: $tpsAnim * 1.5;
+          height: 100%;
+        }
+
+        img {
+          transform: translateY(0);
+          transition-delay: $tpsAnim / 2;
+
+        }
+      }
+
+      div:nth-child(4) {
+        &:before {
+          transition-delay: $tpsAnim * 1.5;
+          height: 100%;
+        }
+
+        img {
+          transition-delay: $tpsAnim / 2;
+          transform: translateY(0);
+        }
+      }
+
+      div:nth-child(5) {
+        &:before {
+          transition-delay: $tpsAnim * 6;
+          height: 100%;
+        }
+
+        img {
+          transition-delay: $tpsAnim * 5.5;
+          transform: translateY(0);
+        }
+      }
+
+      div:nth-child(6) {
+        left: calc($cursusCenter - 150px);
+        top: $cursusBottom;
+
+        &:before {
+          transition-delay: $tpsAnim * 9;
+          height: 100%;
+        }
+
+        img {
+          transition-delay: $tpsAnim * 8.5;
+          transform: translateY(0);
+        }
+      }
+
+      div:nth-child(8),
+      div:nth-child(7) {
+        &:before {
+          transition-delay: $tpsAnim * 9;
+          height: 100%;
+        }
+
+        img {
+          transition-delay: $tpsAnim * 8.5;
+          transform: translateY(0);
+        }
+      }
     }
   }
 
@@ -1075,6 +1457,7 @@ main {
     }
   }
 }
+
 
 .rk_cours_link:hover {
   &:before {

@@ -5,6 +5,7 @@ export default createStore({
     appState: '',
     currentPage: 1,
     mouseState: 'rectangle',
+    currentScrollPercent: 0,
   },
   mutations: {
     appState(state, newState) {
@@ -16,11 +17,15 @@ export default createStore({
     currentPage(state, newCurrentPage) {
       state.currentPage = newCurrentPage;
     },
+    scrollState(state, newScroll) {
+      state.currentScrollPercent = newScroll;
+    },
   },
   getters: {
     getState: (state) => state.appState,
     getCurrentPage: (state) => state.currentPage,
     getMouseState: (state) => state.currentPage,
+    getScrollState: (state) => state.currentScrollPercent,
   },
   actions: {
   },

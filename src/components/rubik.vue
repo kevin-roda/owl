@@ -1,7 +1,7 @@
 <template lang="fr">
   <div class='cube_ctt' :class="angle">
 
-    <div  v-for="(parts,inc) in faces" :class="rotationCls[inc]" id="stage">
+    <div  v-for="(parts,inc) in faces" :class="'stage '+ rotationCls[inc]" :style="cubeParts[inc]" >
       <div class="spinner one">
         <div v-for="(face,i) in faces[inc][0]" :class="'face'+(i + 1)+' col'+face"></div>
       </div>
@@ -40,11 +40,55 @@ export default {
   components: {
 
   },
+  computed: {
+    scrolled() {
+      return this.$store.state.currentScrollPercent;
+    }
+  },
   data() {
     return {
       rotationCls: ["", "", ""],
       angle: "horizontal",
+      cubeParts: ['', '', ''],
+      rotx: 0,
+      roty: 0,
+      rotz: 0,
       faces: [
+        [
+          [6, 2, 3, 4, 3, 6],
+          [2, 2, 3, 4, 5, 6],
+          [2, 2, 3, 4, 5, 6],
+          [1, 2, 3, 4, 5, 6],
+          [2, 2, 3, 4, 5, 6],
+          [2, 2, 3, 4, 5, 6],
+          [1, 2, 3, 4, 5, 4],
+          [3, 2, 3, 4, 5, 1],
+          [3, 6, 3, 4, 5, 1],
+        ],
+        [
+          [1, 2, 3, 4, 6, 6],
+          [1, 2, 3, 4, 5, 6],
+          [1, 2, 3, 4, 5, 6],
+          [1, 2, 3, 4, 6, 6],
+          [1, 2, 3, 4, 5, 6],
+          [1, 2, 3, 4, 5, 6],
+          [1, 2, 3, 4, 6, 5],
+          [1, 2, 3, 4, 5, 1],
+          [1, 2, 3, 4, 5, 1],
+        ],
+        [
+          [6, 2, 3, 4, 5, 6],
+          [2, 2, 3, 4, 5, 6],
+          [2, 1, 3, 4, 5, 6],
+          [1, 2, 3, 4, 6, 6],
+          [2, 2, 3, 4, 5, 6],
+          [2, 1, 3, 4, 5, 6],
+          [1, 2, 3, 4, 2, 6],
+          [3, 2, 3, 4, 5, 6],
+          [3, 5, 3, 4, 5, 6],
+        ]
+      ],
+      faces1: [
         [
           [6, 2, 3, 4, 3, 6],
           [2, 2, 3, 4, 5, 6],
@@ -224,48 +268,122 @@ export default {
   created: function () {
     var i = 0;
     var currentApp = this;
-    var moveCube = setInterval(function () {
+    // var moveCube = setInterval(function () {
 
-      i++;
+    //   i++;
 
-      switch (i) {
+    //   switch (i) {
+    //     case 1:
+    //       currentApp.faces = currentApp.faces2;
+    //       currentApp.rotationCls = ["", "", "rotateX"];
+    //       break;
+
+    //     case 2:
+    //       currentApp.faces = currentApp.faces2;
+    //       currentApp.rotationCls = ["", "", "rotateLY"];
+    //       currentApp.angle = "vertical";
+    //       break;
+
+    //     case 3:
+    //       currentApp.faces = currentApp.faces3;
+    //       currentApp.rotationCls = ["", "", "rotateLX"];
+    //       currentApp.angle = "horizontal";
+    //       break;
+
+    //     case 4:
+    //       currentApp.faces = currentApp.faces4;
+    //       currentApp.rotationCls = ["", "", "rotateLY"];
+    //       currentApp.angle = "vertical";
+    //       break;
+
+    //     case 5:
+    //       currentApp.faces = currentApp.faces5;
+    //       currentApp.rotationCls = ["", "", "rotateX"];
+    //       currentApp.angle = "horizontal";
+    //       break;
+
+    //     case 6:
+    //       clearInterval(moveCube);
+    //       break;
+
+    //   }
+
+    // }, 400);
+
+  },
+  watch: {
+    scrolled(from, to) {
+      let face = 0;
+
+      if (to < 20) {
+        face = 1;
+      } else if (to < 40) {
+        face = 2;
+      } else if (to < 60) {
+        face = 3;
+      } else if (to < 80) {
+        face = 4;
+      } else {
+        face = 5;
+      }
+
+      switch (face) {
         case 1:
-          currentApp.faces = currentApp.faces2;
-          currentApp.rotationCls = ["", "", "rotateX"];
+          this.faces = this.faces1;
+          this.rotationCls = ["", "", "rotateX"];
+          this.angle = "horizontal";
+          this.rotx = 53;
+          this.roty = 13;
+          this.rotz = -27 + ((to * 90) / 20);
+          this.cubeParts[2] = `-webkit-transform: rotateX(${this.rotx}deg) rotateY(${this.roty}deg) rotateZ(${this.rotz}deg);`;
           break;
 
         case 2:
-          currentApp.faces = currentApp.faces2;
-          currentApp.rotationCls = ["", "", "rotateLY"];
-          currentApp.angle = "vertical";
+          this.faces = this.faces2;
+          this.rotationCls = ["", "", "rotateLY"];
+          this.angle = "vertical";
+          this.rotx = -13;
+          this.roty = -60;
+          this.rotz = -63 + ((to * 90) / 20);
+          this.cubeParts[2] = `-webkit-transform: rotateX(${this.rotx}deg) rotateY(${this.roty}deg) rotateZ(${this.rotz}deg);`;
           break;
 
         case 3:
-          currentApp.faces = currentApp.faces3;
-          currentApp.rotationCls = ["", "", "rotateLX"];
-          currentApp.angle = "horizontal";
+          this.faces = this.faces3;
+          this.rotationCls = ["", "", "rotateLX"];
+          this.angle = "horizontal";
+          this.rotx = 53;
+          this.roty = 13;
+          this.rotz = -208 + ((to * 270) / 20);
+          this.cubeParts[2] = `-webkit-transform: rotateX(${this.rotx}deg) rotateY(${this.roty}deg) rotateZ(${this.rotz}deg);`;
+
           break;
 
         case 4:
-          currentApp.faces = currentApp.faces4;
-          currentApp.rotationCls = ["", "", "rotateLY"];
-          currentApp.angle = "vertical";
+          this.faces = this.faces4;
+          this.rotationCls = ["", "", "rotateLY"];
+          this.angle = "vertical";
+          this.rotx = -13;
+          this.roty = -60;
+          this.rotz = 116 + ((to * 90) / 20);
+          this.cubeParts[2] = `-webkit-transform: rotateX(${this.rotx}deg) rotateY(${this.roty}deg) rotateZ(${this.rotz}deg);`;
           break;
 
         case 5:
-          currentApp.faces = currentApp.faces5;
-          currentApp.rotationCls = ["", "", "rotateX"];
-          currentApp.angle = "horizontal";
+          this.faces = this.faces5;
+          this.rotationCls = ["", "", "rotateX"];
+          this.angle = "horizontal";
+          this.rotx = 53;
+          this.roty = 13;
+          this.rotz = -27 + ((to * 90) / 20);
+          this.cubeParts[2] = `-webkit-transform: rotateX(${this.rotx}deg) rotateY(${this.roty}deg) rotateZ(${this.rotz}deg);`;
           break;
 
-        case 6:
-          clearInterval(moveCube);
-          break;
+
 
       }
 
-    }, 400);
-
+    },
   }
 }
 </script>
@@ -274,10 +392,10 @@ export default {
 .cube_ctt {
   height: 200px;
   width: 200px;
-  position: absolute;
-  left: 80%;
-  bottom: 0;
-  transform: translate(-156%, -50%);
+  position: fixed;
+  left: 20%;
+  bottom: 0%;
+  transform: translate(-156%, -50%) scale(0.5);
   z-index: 10;
   -webkit-filter: grayscale(0) drop-shadow(0 10px 3px #000);
   filter: grayscale(0) drop-shadow(0 20px 30px black);
@@ -420,7 +538,7 @@ export default {
 }
 
 .horizontal {
-  #stage {
+  .stage {
 
     -webkit-animation-timing-function: ease-in-out;
     -webkit-animation-iteraticon-count: infinite;
@@ -464,7 +582,7 @@ export default {
 }
 
 .vertical {
-  #stage {
+  .stage {
     -webkit-animation-timing-function: ease-in-out;
     -webkit-animation-iteraticon-count: infinite;
     -webkit-animation-duration: 0.4s;
@@ -504,54 +622,54 @@ export default {
 }
 
 
-.rotateLY {
-  -webkit-animation-name: rotationLY;
-}
+// .rotateLY {
+//   -webkit-animation-name: rotationLY;
+// }
 
 .rotateY {
   -webkit-animation-name: rotationY;
 
 }
 
-.rotateLX {
-  -webkit-animation-name: rotationLX;
-}
+// .rotateLX {
+//   -webkit-animation-name: rotationLX;
+// }
 
-.rotateX {
-  -webkit-animation-name: rotationX;
+// .rotateX {
+//   -webkit-animation-name: rotationX;
 
-}
+// }
 
 
-@-webkit-keyframes rotationLX {
-  0% {
-    -webkit-transform: rotateX(53deg) rotateY(13deg) rotateZ(-27deg);
-  }
+// @-webkit-keyframes rotationLX {
+//   0% {
+//     -webkit-transform: rotateX(53deg) rotateY(13deg) rotateZ(-27deg);
+//   }
 
-  100% {
-    -webkit-transform: rotateX(53deg) rotateY(13deg) rotateZ(-117deg);
-  }
-}
+//   100% {
+//     -webkit-transform: rotateX(53deg) rotateY(13deg) rotateZ(-117deg);
+//   }
+// }
 
-@-webkit-keyframes rotationX {
-  0% {
-    -webkit-transform: rotateX(53deg) rotateY(13deg) rotateZ(-27deg);
-  }
+// @-webkit-keyframes rotationX {
+//   0% {
+//     -webkit-transform: rotateX(53deg) rotateY(13deg) rotateZ(-27deg);
+//   }
 
-  100% {
-    -webkit-transform: rotateX(53deg) rotateY(13deg) rotateZ(63deg);
-  }
-}
+//   100% {
+//     -webkit-transform: rotateX(53deg) rotateY(13deg) rotateZ(63deg);
+//   }
+// }
 
-@-webkit-keyframes rotationLY {
-  0% {
-    -webkit-transform: rotateX(-13deg) rotateY(-60deg) rotate(27deg);
-  }
+// @-webkit-keyframes rotationLY {
+//   0% {
+//     -webkit-transform: rotateX(-13deg) rotateY(-60deg) rotate(27deg);
+//   }
 
-  100% {
-    -webkit-transform: rotateX(-13deg) rotateY(-60deg) rotate(117deg);
-  }
-}
+//   100% {
+//     -webkit-transform: rotateX(-13deg) rotateY(-60deg) rotate(117deg);
+//   }
+// }
 
 @-webkit-keyframes rotationY {
   0% {
