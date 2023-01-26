@@ -1,8 +1,9 @@
 <template>
     <transition name="modal">
         <div class="modal-mask">
-            <div class="rk_cour">
-
+            <div class="rk_cours">
+                <cours :coursName="course.pageName" :coursId="course.pageId" v-for="(course, index) in courses"
+                    :key="index"></cours>
             </div>
 
             <button class="modal-default-button" @click="$emit('close')">
@@ -13,18 +14,20 @@
 </template>
 
 <script>
-
-const { Client } = require('@notionhq/client');
 import axios from 'axios';
+import cours from '../components/single_cours.vue';
 
 export default {
     name: 'souris',
-    props: {
-        msg: String,
+
+    props: ['coursName', 'coursId'],
+    components: {
+        cours: cours,
     },
     data() {
         return {
             cursorWidth: 500,
+            courses: []
         };
     },
     methods: {
@@ -34,44 +37,16 @@ export default {
     },
 
     beforeMount() {
-        // const secretKey = 'secret_IlF1kMwlAquRlOAfOll4l5Z4zXe0zJcdC8QJSlfAckA'
-        // const headers = {
-        //     Authorization: 'Bearer secret_IlF1kMwlAquRlOAfOll4l5Z4zXe0zJcdC8QJSlfAckA',
-        //     'Notion-Version': '2022-02-22',
-        //     'Access-Control-Allow-Origin': '*',
-        // }
-        // const options = {
-        //     method: 'GET',
-        //     url: '/notion/945c89ee12804ac4bfa7c60649e14208',
-        //     headers
-
-        // };
-        // axios
-        //     .request(options)
-        //     .then(function (response) {
-        //         console.log(response.data);
-        //     })
-        //     .catch(function (error) {
-        //         console.error(error);
-        //     });
-        var url = "https://api.notion.com/v1/pages/945c89ee12804ac4bfa7c60649e14208";
-
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", url);
-
-        xhr.setRequestHeader("Notion-Version", "2022-02-22");
-        xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
-
-        xhr.setRequestHeader("Authorization", "Bearer secret_IlF1kMwlAquRlOAfOll4l5Z4zXe0zJcdC8QJSlfAckA");
-
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4) {
-                console.log(xhr.status);
-                console.log(xhr.responseText);
-            }
-        };
-
-        xhr.send();
+        let currentVue = this;
+        axios.get('https://www.fly.owlf.school/listcours/' + this.$store.getters.getCurrentCoursePage)
+            .then(function (response) {
+                // handle success
+                currentVue.courses = response.data;
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
     },
 
 };
@@ -89,6 +64,18 @@ export default {
     justify-content: center;
     align-items: center;
     transition: opacity 0.3s ease;
+
+    .rk_cours {
+        position: absolute;
+        display: flex;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        justify-content: space-evenly;
+        padding: 20px;
+
+    }
 }
 
 .modal-mask:before {

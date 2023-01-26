@@ -141,7 +141,7 @@
 
        <h2>Les cours proposés</h2>
 
-       <a href="#" class="rk_cours_link" @click="showModal = true">
+       <div class="rk_cours_link" @click="showModal = true; $store.commit('currentCoursePage', '717f35156c6c497f83d3c934e80592e5'); ">
          <div class="rk_nb">
            .01
          </div>
@@ -156,8 +156,8 @@
          <div class="rk_click">
            Voir ce cours
          </div>
-       </a>
-       <a href="#" class="rk_cours_link">
+        </div>
+       <div class="rk_cours_link">
          <div class="rk_nb">
            .01
          </div>
@@ -172,8 +172,8 @@
          <div class="rk_click">
            Voir ce cours
          </div>
-       </a>
-       <a href="#" class="rk_cours_link">
+        </div>
+       <div class="rk_cours_link">
          <div class="rk_nb">
            .01
          </div>
@@ -188,8 +188,8 @@
          <div class="rk_click">
            Voir ce cours
          </div>
-       </a>
-       <a href="#" class="rk_cours_link">
+        </div>
+       <div class="rk_cours_link">
          <div class="rk_nb">
            .01
          </div>
@@ -204,7 +204,7 @@
          <div class="rk_click">
            Voir ce cours
          </div>
-       </a>
+        </div>
 
      </section>
      <section class="rk_sct3_accueil">
