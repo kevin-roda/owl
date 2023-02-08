@@ -1,14 +1,16 @@
 <template>
     <transition name="modal">
         <div class="modal-mask">
-            <div class="rk_cours">
-                <cours :coursName="course.pageName" :coursId="course.pageId" v-for="(course, index) in courses"
-                    :key="index"></cours>
+            <div :class="'rk_cours ' + modalState + ' ' + courseSelected">
+
+                <cours :coursName="course.pageName" :crs_index="index + 1" :currentPage="course.isCurrentPage"
+                    :coursId="course.pageId" v-for="(course, index) in courses" :key="index"></cours>
             </div>
 
-            <button class="modal-default-button" @click="$emit('close')">
-                OK
-            </button>
+            <div :class="'rk_close_menu ' + modalState" @click="closeModal">
+                <div class="rk_trait"></div>
+                <div class="rk_trait"></div>
+            </div>
         </div>
     </transition>
 </template>
@@ -20,28 +22,61 @@ import cours from '../components/single_cours.vue';
 export default {
     name: 'souris',
 
-    props: ['coursName', 'coursId'],
+    props: ['coursName', 'coursId', 'crs_index', 'currentPage'],
     components: {
         cours: cours,
     },
     data() {
         return {
-            cursorWidth: 500,
-            courses: []
+            courseSelected: '',
+            modalState: '',
+            courses: [],
         };
     },
+
+    computed: {
+        pageChanged() {
+            return this.$store.getters.getcurrentCourseSelectedPage;
+        }
+    },
     methods: {
-        morphToBall() {
+        closeModal() {
+            this.$emit('close');
+            this.modalState = '';
+            this.$store.commit('currentCourseSelectedPage', '');
+        }
+    },
+    watch: {
+        pageChanged(to, from) {
+            this.courses.map(function (x) {
+                x.isCurrentPage = '';
+                return x
+            });
+            if (to < 1) {
+
+            } else {
+
+                this.courseSelected = 'selected'
+                this.courses[to - 1].isCurrentPage = "currentPage";
+                document.documentElement.style.setProperty("--nbChild", this.courses.length);
+
+            }
 
         },
     },
-
     beforeMount() {
         let currentVue = this;
+        this.modalState = 'loading';
         axios.get('https://www.fly.owlf.school/listcours/' + this.$store.getters.getCurrentCoursePage)
             .then(function (response) {
+                currentVue.modalState = 'ready';
                 // handle success
+                response.data.map(function (x) {
+                    x.isCurrentPage = '';
+                    return x
+                });
                 currentVue.courses = response.data;
+                console.log(currentVue.courses);
             })
             .catch(function (error) {
                 // handle error
@@ -53,6 +88,88 @@ export default {
 </script>
 
 <style scoped lang="scss">
+$wideScreen: 1280px;
+$dekstop: 720px;
+$tablet: 450px;
+$phone: 200px;
+
+$angle : calc(90deg / var(--nbChild));
+
+.rk_close_menu {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    display: block;
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+    z-index: 11;
+    overflow: hidden;
+
+    .rk_trait {
+        width: 50px;
+        height: 6px;
+        position: absolute;
+        background: #19e590;
+        transform-origin: center;
+        transition: all 0.4s ease;
+    }
+}
+
+.rk_cours.loading+.rk_close_menu {
+    .rk_trait {
+        &:nth-child(1) {
+            transform: rotate(45deg) translate(200px, 0);
+        }
+
+        &:nth-child(2) {
+            transform: rotate(-45deg) translate(200px, 0);
+        }
+    }
+}
+
+.rk_cours.ready+.rk_close_menu {
+    .rk_trait {
+        &:nth-child(1) {
+            transition-delay: 0.6s;
+            transform: rotate(45deg) translate(16px, 16px);
+        }
+
+        &:nth-child(2) {
+            transition-delay: 0.8s;
+            transform: rotate(-45deg) translate(-16px, 16px);
+        }
+    }
+}
+
+@mixin respond($breakpoint) {
+
+    @if($breakpoint ==wideScreen) {
+        @media (min-width: 1280px) {
+            @content
+        }
+    }
+
+    @if($breakpoint ==desktop) {
+        @media (max-width: 1280px) {
+            @content
+        }
+    }
+
+    @if($breakpoint ==tablet) {
+        @media (max-width: 720px) {
+            @content
+        }
+    }
+
+    @if($breakpoint ==phone) {
+        @media (max-width: 450px) {
+            @content
+        }
+    }
+
+}
+
 .modal-mask {
     position: fixed;
     z-index: 100;
@@ -72,8 +189,53 @@ export default {
         top: 0;
         width: 100%;
         height: 100%;
-        justify-content: space-evenly;
+        justify-content: start;
+        flex-wrap: wrap;
         padding: 20px;
+
+        &.selected {
+
+            .rk_course_page:not(.currentPage) {
+
+
+                h2 {
+                    bottom: 100%;
+                }
+
+                @for $i from 1 through 8 {
+
+
+                    &:nth-child(#{$i}) {
+                        transform-origin: bottom center;
+
+                        &:hover {
+                            transform: translateY(0) translatex(-50%) scale(1) rotate(calc(-55deg + calc($angle * $i))) !important;
+                            padding-bottom: 100px !important;
+                        }
+
+                        @include respond(wideScreen) {
+
+                            transform: translateY(0) translatex(-50%) scale(1) rotate(calc(-55deg + calc($angle * $i)));
+                            left: 50%;
+                            bottom: -120px;
+                        }
+
+                        @include respond(desktop) {
+                            left: calc(calc(calc(100vw - $dekstop) / 2) + calc(calc($dekstop / 8) * calc($i - 1)));
+                        }
+
+                        @include respond(tablet) {
+                            left: calc(calc(calc(100vw - $tablet) / 2) + calc(calc($tablet / 8) * calc($i - 1)));
+                        }
+
+                        @include respond(phone) {
+                            left: calc(calc(calc(100vw - $phone) / 2) + calc(calc($phone / 8) * calc($i - 1)));
+
+                        }
+                    }
+                }
+            }
+        }
 
     }
 }

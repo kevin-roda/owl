@@ -5,6 +5,7 @@ export default createStore({
     appState: '',
     currentPage: 1,
     currentCoursePage: '',
+    currentCourseSelectedPage: '',
     mouseState: 'rectangle',
     currentScrollPercent: 0,
   },
@@ -19,8 +20,11 @@ export default createStore({
       state.currentPage = newCurrentPage;
     },
     currentCoursePage(state, newCurrentCoursePage) {
-      console.log(newCurrentCoursePage);
       state.currentCoursePage = newCurrentCoursePage;
+    },
+
+    currentCourseSelectedPage(state, newCurrentCourseSelectedPage) {
+      state.currentCourseSelectedPage = newCurrentCourseSelectedPage;
     },
     scrollState(state, newScroll) {
       state.currentScrollPercent = newScroll;
@@ -30,6 +34,7 @@ export default createStore({
     getState: (state) => state.appState,
     getCurrentPage: (state) => state.currentPage,
     getCurrentCoursePage: (state) => state.currentCoursePage,
+    getcurrentCourseSelectedPage: (state) => state.currentCourseSelectedPage,
     getMouseState: (state) => state.currentPage,
     getScrollState: (state) => state.currentScrollPercent,
   },

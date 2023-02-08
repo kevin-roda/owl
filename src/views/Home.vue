@@ -91,7 +91,6 @@ export default {
       if (val == 1) {
         this.mainBg =
           "background-image: url(https://picsum.photos/id/1/1920/1080);";
-        console.log(this.mainBg);
       } else if (val == 2) {
         this.mainBg =
           "background-image: url(https://picsum.photos/id/1006/1920/1080);";
